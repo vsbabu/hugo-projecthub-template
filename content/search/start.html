@@ -1,0 +1,22 @@
++++
+title = "Search"
++++
+
+<form class="search-form" role="search" id="site-search">
+  <div class="form-group">
+    <div class="input-group input-group-sm dropdown">
+      <input type="search" id="search-input" class="form-control site-search" placeholder="Search" autocomplete="off" required>
+      <span class="input-group-btn"> <button class="btn btn-info" type="button" id="search-button"
+          role="button"><span class="fa fa-search"></span></button></span>
+    </div>
+  </div>
+</form>
+<ul id="search-results" class="list-unstyled">
+</ul>
+<script src="/js/lunr.min.js"></script>
+<script src="/js/search-lunr-ajax-call.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  searchInput.focus();
+});
+</script>

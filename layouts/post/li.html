@@ -1,0 +1,8 @@
+    <li>
+      <small class="pull-right">{{ .Date.Format "Mon, Jan 2, 2006" }}</small>
+      <h4>
+        {{ range .Params.projects }}<a class="text-info" href="/projects/{{ . | urlize }}">{{ . | title }}</a> - {{ end }}
+        <a href="{{ .Permalink }}">{{ .Title}}</a>
+      </h4>
+      {{ .Description }}
+    </li>

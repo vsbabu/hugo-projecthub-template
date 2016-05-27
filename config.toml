@@ -1,0 +1,9 @@
+baseurl = "http://localhost/kickass/"
+languageCode = "en-us"
+title = "Kickass Team!"
+canonifyurls = true
+SectionPagesMenu = "main"
+
+[taxonomies]
+tag = "tags"
+category = "categories"

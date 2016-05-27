@@ -1,0 +1,34 @@
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ .Site.BaseURL }}"><img src="/img/brand_tn.jpg" class="img-rounded"  height="48" width="48" alt="{{ .Site.Title }}"></a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/categories/article/"><span class="fa fa-file-text-o"></span> Articles</a></li>
+                    <li><a href="/categories/reference/"><span class="fa fa-sticky-note-o"></span> Reference</a></li>
+                    <!--
+                    And here is where you'd add more links to sections, or anywhere you like.
+                    <li><a href="#">About Me</a></li>
+                    -->
+                    <li><a href="/pearl/"><span class="fa fa-hand-o-right"></span> Pearls</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-tasks"></span> Projects <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                      {{ range where .Site.Sections.project.Pages "Params.tracker" "!=" nil }}
+                      <li class="text-capitalize"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+                      {{ end }}
+                      </ul>
+                    </li>
+                    <li><a href="/post/"><span class="fa fa-calendar"></span> Posts</a></li>
+                    <li><a href="/search/start/" accesskey="s"><span class="fa fa-search"></span> <u>S</u>earch</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>

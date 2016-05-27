@@ -1,0 +1,35 @@
+        <div class="panel panel-default">
+            <div class="panel-heading text-center" style="padding: 2px 15px;">
+                <h4>Top Taxonomies</h4>
+            </div>
+            <div class="panel-body text-left">
+              {{ $expandedupto := 3 }}
+              <h5>Categories</h5>
+              <ul class="list-unstyled">
+              {{ range $key, $value := first $expandedupto .Site.Taxonomies.categories.ByCount }}
+                <li>
+                  <a href="/categories/{{ $value.Name | urlize }}">{{ $value.Name }}</a>
+                  <span class="text-info">&#40;{{ $value.Count }}&#41;</span>
+                </li>
+              {{ end }}
+              {{ if gt (len .Site.Taxonomies.categories) $expandedupto }}
+              <li><a class="btn  btn-sm pull-right" href="/categories/">more <span class="fa fa-angle-double-right"></span></a>
+              </li>
+              {{ end }}
+              </ul>
+              <br/>
+              <h5>Tags</h5>
+              <ul class="list-unstyled">
+              {{ range $key, $value := first $expandedupto .Site.Taxonomies.tags.ByCount }}
+                <li>
+                  <a href="/tags/{{ $value.Name | urlize }}">{{ $value.Name }}</a>
+                  <span class="text-info">&#40;{{ $value.Count }}&#41;</span>
+                </li>
+              {{ end }}
+              {{ if gt (len .Site.Taxonomies.tags) $expandedupto }}
+              <li><a class="btn  btn-sm pull-right" href="/tags/">more <span class="fa fa-angle-double-right"></span></a>
+              </li>
+              {{ end }}
+              </ul>
+            </div>
+        </div>

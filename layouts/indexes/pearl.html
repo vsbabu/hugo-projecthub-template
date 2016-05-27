@@ -1,0 +1,25 @@
+{{ partial "header.html" . }}
+<body>
+{{ partial "navbar.html" . }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            {{ range (.Paginator 10).Pages }}
+            <div class="well well-sm">
+                <ul class="list-unstyled">
+                    {{ .Render "li" }}
+                </ul>
+            </div>
+            {{ end}}
+            {{ template "_internal/pagination.html" . }}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+        {{ partial "menu.html" . }}
+        {{ partial "toptaxonomies.html" . }}
+        </div>
+    </div>
+{{ partial "footer.copyright.html" . }}
+</div>
+{{ partial "footer.html" . }}

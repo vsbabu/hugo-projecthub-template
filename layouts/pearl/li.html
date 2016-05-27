@@ -1,0 +1,6 @@
+    <li>
+      <h4>
+        <small class="pull-right">{{ .Date.Format "Mon, Jan 2, 2006" }}</small>
+        <span class="fa fa-hand-o-right text-info"></span> <em class="text-info">#{{ .Title}}</em> - {{ .Description | markdownify }}
+      </h4>
+    </li>

@@ -1,0 +1,39 @@
+{{ partial "header.html" . }}
+<body>
+{{ partial "navbar.html" . }}
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{{ .Site.BaseURL }}/img/home-bg-pathway.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                      <h1>{{ .Site.Title }}</h1>
+                      <!--
+                        <hr class="small">
+                        <span class="subheading">TODO: If you want a subheading</span>
+                      -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+        {{ range first 10 .Data.Pages }}
+            {{ .Render "summary" }}
+        {{ end }}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+        {{ partial "menu.html" . }}
+        {{ partial "toptaxonomies.html" . }}
+        </div>
+    </div>
+{{ partial "footer.copyright.html" . }}
+</div>
+{{ partial "footer.html" . }}

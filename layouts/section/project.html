@@ -1,0 +1,40 @@
+{{ partial "header.html" . }}
+<body>
+{{ partial "navbar.html" . }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+          <h3>Projects</h3>
+          {{ range where .Site.Sections.project.Pages "Params.tracker" "!=" nil }}
+          {{ .Render "summary" }}
+          {{ end }}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+        {{ partial "menu.html" . }}
+        {{ partial "toptaxonomies.html" . }}
+        </div>
+    </div>
+{{ partial "footer.copyright.html" . }}
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+  // TODO: this ranging again could be bad in large list...
+  {{ range first 1 .Data.Pages }}
+    var lastPost = moment("{{ .Date  }}");
+    var lastPostTxt = lastPost.fromNow();
+    var lastPostDays = Math.floor((moment() - lastPost)/(24*60*60*1000),0);
+    var timePrefix = "Stuck since ";
+    var timeClass = "danger";
+    if (lastPostDays < 50) { timeClass = "warning"; timePrefix = "Stale since "; }
+    if (lastPostDays < 09) { timeClass = "info"; timePrefix = "Last updated "; }
+    if (lastPostDays < 05) { timeClass = "success"; timePrefix = "Recently updated "; }
+    $("#timestats").addClass("text-" + timeClass);
+    $("#timestats").text(timePrefix + lastPostTxt);
+    $(".tl-node").addClass("tl-" + timeClass);
+    $(".timeline").addClass("tl-" + timeClass);
+  {{ end }}
+  });
+</script>
+{{ partial "footer.html" . }}

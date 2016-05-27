@@ -1,0 +1,103 @@
+{{ partial "header.html" . }}
+<body>
+{{ partial "navbar.html" . }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+          {{ $thisguy := $.RelPermalink }}
+          {{ if isset .Params "tracker" }}
+          <h3>{{ .Title }}<br> <small>{{ .Description }}</small></h3>
+          {{ else }}
+            {{ range where $.Site.Sections.project.Pages "RelPermalink" "!=" $thisguy }}
+              {{ if isset .Params "tracker" }}{{ if in $thisguy .RelPermalink }}
+                <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+              {{ end }}{{ end }}
+            {{ end }}
+            <h3>{{ .Title }}<br> <small>{{ .Description }}</small></h3>
+          {{ end }}
+          {{ if isset .Params "tracker" }}
+            {{ .Summary }}
+            {{ if .Truncated }}
+              <a  class="pull-right" role="button" data-toggle="collapse" href="#collapseMore" aria-expanded="false" aria-controls="collapseMore">
+              <i id="arrowMore" class="fa fa-caret-down fa-2x"></i></a>
+              <div class="collapse" id="collapseMore">
+                {{ substr .Content (add (len .Summary) 1)| safeHTML }}
+              </div>
+              <script type="text/javascript">
+                $('#collapseMore').on('shown.bs.collapse', function () {
+                  $('#arrowMore').removeClass('fa-caret-down');
+                  $('#arrowMore').addClass('fa-caret-up');
+                });
+                $('#collapseMore').on('hidden.bs.collapse', function () {
+                  $('#arrowMore').removeClass('fa-caret-up');
+                  $('#arrowMore').addClass('fa-caret-down');
+                });
+              </script>
+            {{ end }}
+          {{ else }}
+            {{ .Content }}
+          {{ end }}
+
+          {{ $.Scratch.Set "recentdate" "0" }}
+          {{ if isset .Params "tracker" }}
+            {{ range where $.Site.Sections.project.Pages "RelPermalink" "!=" $thisguy }}
+              {{ if in .RelPermalink $thisguy }}
+                {{ if eq ($.Scratch.Get "recentdate") "0" }}
+                  {{ $.Scratch.Set "recentdate" .Date }}
+                  <ol class="timeline">
+                {{ end }}
+                <li class="tl-node">
+                  <div class="well well-sm">
+                  <div class="tl-stamp text-success">{{ .Date.Format "Monday, January 2, 2006 15:04" | safeHTML }}</div>
+                  <div class="tl-content">
+                    <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+                  </div>
+                  {{ .Description }}<br><br>
+                  {{ .Summary }}
+                  {{ if .Truncated }}
+                    <a class="btn btn-sm pull-right" href="{{ .RelPermalink }}">more <span class="fa fa-angle-double-right"></span></a>
+                    <br>
+                  {{ end }}
+                  </div>
+                </li>
+              {{ end }}
+            {{ end }}
+            {{ if ne ($.Scratch.Get "recentdate") "0" }}
+            </ol>
+              <script type="text/javascript">
+              $(document).ready(function(){
+                var lastPost = moment(" {{ $.Scratch.Get "recentdate" }} ");
+                console.log(lastPost);
+                var lastPostTxt = lastPost.fromNow();
+                var lastPostDays = Math.floor((moment() - lastPost)/(24*60*60*1000),0);
+                var timePrefix = "Stuck since ";
+                var timeClass = "danger";
+                if (lastPostDays < 50) { timeClass = "warning"; timePrefix = "Stale since "; }
+                if (lastPostDays < 09) { timeClass = "info"; timePrefix = "Last updated "; }
+                if (lastPostDays < 05) { timeClass = "success"; timePrefix = "Recently updated "; }
+                $("#timestats").addClass("text-" + timeClass);
+                $("#timestats").text(timePrefix + lastPostTxt);
+                $(".tl-node").addClass("tl-" + timeClass);
+                $(".timeline").addClass("tl-" + timeClass);
+              });
+              </script>
+            {{ end }}
+          {{ end }}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="well well-sm"> <!-- Post-specific stats -->
+                <h4>{{ .Date.Format "Monday, January 2, 2006" }}<br>
+                <strong>Categories</strong><br>
+                {{ range .Params.categories }}<a class="label label-default" href="/categories/{{ . | urlize }}">{{ . }}</a> {{ end }}
+                <hr>
+                <strong>Tags</strong><br>
+                {{ range .Params.tags }}<a class="label label-default" href="/tags/{{ . | urlize }}">{{ . }}</a> {{ end }}
+            </div>
+            {{ partial "menu.html" . }}
+        </div>
+    </div>
+{{ partial "footer.copyright.html" . }}
+</div>
+{{ partial "footer.html" . }}

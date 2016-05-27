@@ -1,0 +1,26 @@
+{{ partial "header.html" . }}
+<body>
+{{ partial "navbar.html" . }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <h1>{{ .Title }}</h1>
+      <ul>
+      {{ $data := .Data }}
+      {{ range $key, $value := .Data.Terms.ByCount }}
+        <li>
+          <a href="{{ $value.Name | urlize }}">{{ $value.Name }}</a>
+          <span>&#40;{{ $value.Count }}&#41;</span>
+        </li>
+      {{ end }}
+      </ul>
+    </div>
+    <!-- Sidebar -->
+    <div class="col-md-3">
+    {{ partial "menu.html" . }}
+    </div>
+  </div>
+{{ partial "footer.copyright.html" . }}
+</div>
+{{ partial "footer.html" . }}

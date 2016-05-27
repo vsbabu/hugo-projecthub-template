@@ -1,0 +1,14 @@
+<div class="well well-sm">
+    <h4>
+        <a href="{{ .Permalink }}">{{ .Title }}</a> <small class="pull-right">{{ .Date.Format "Mon, Jan 2, 2006" }}</small><br>
+        <small>{{ .Description }}</small>
+        {{ if ne .RelPermalink "/projects/"}}
+        <small class="pull-right">{{ range .Params.projects }}<a href="projects/{{ . | urlize }}">{{ . }}</a>{{ end }}</small>
+        {{ end }}
+    </h4>
+    <p>{{ .Summary }}</p>
+    {{ if .Truncated }}
+    <a class="btn  btn-sm pull-right" href="{{ .Permalink }}">more <span class="fa fa-angle-double-right"></span></a>
+    <br>
+    {{ end }}
+</div>

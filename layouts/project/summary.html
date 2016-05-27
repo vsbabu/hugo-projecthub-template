@@ -1,0 +1,11 @@
+<div class="well well-sm">
+    <h4>
+        <a href="{{ .Permalink }}">{{ .Title }}</a> <small class="pull-right">{{ .Date.Format "Mon, Jan 2, 2006" }}</small><br>
+        <small>{{ .Description }}</small>
+    </h4>
+    <p>{{ .Summary }}</p>
+    {{ if .Truncated }}
+    <a class="btn  btn-sm pull-right" href="{{ .Permalink }}">more <span class="fa fa-angle-double-right"></span></a>
+    <br>
+    {{ end }}
+</div>

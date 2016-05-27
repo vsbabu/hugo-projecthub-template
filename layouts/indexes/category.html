@@ -1,0 +1,32 @@
+{{ partial "header.html" . }}
+<body>
+{{ partial "navbar.html" . }}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h3>Category : {{ .Title }}</h3>
+            {{ $expandedupto := 1 }}
+            {{ range first $expandedupto .Data.Pages }}
+                {{ .Render "summary" }}
+            {{ end }}
+            {{ if gt (len .Data.Pages) $expandedupto }}
+            <div class="well well-sm">
+                <ul class="list-unstyled">
+                    {{ range after $expandedupto (.Paginator 10).Pages }}
+                        {{ .Render "li" }}
+                    {{ end}}
+                </ul>
+            </div>
+            {{ template "_internal/pagination.html" . }}
+            {{ end }}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-3">
+        {{ partial "menu.html" . }}
+        {{ partial "toptaxonomies.html" . }}
+        </div>
+    </div>
+{{ partial "footer.copyright.html" . }}
+</div>
+{{ partial "footer.html" . }}
