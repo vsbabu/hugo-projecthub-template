@@ -20,11 +20,13 @@
                     <li><a href="/pearl/"><span class="fa fa-hand-o-right"></span> Pearls</a></li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-tasks"></span> Projects <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                      {{ range where .Site.Sections.project.Pages "Params.tracker" "!=" nil }}
-                      <li class="text-capitalize"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-                      {{ end }}
-                      </ul>
+                        <ul class="dropdown-menu">
+                        {{ with .Site.GetPage "section" "project" }}
+                        {{ range where .Data.Pages "Params.tracker" "!=" nil }}
+                        <li class="text-capitalize"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+                        {{ end }}
+                        {{ end }}
+                        </ul>
                     </li>
                     <li><a href="/post/"><span class="fa fa-calendar"></span> Posts</a></li>
                     <li><a href="/search/start/" accesskey="s"><span class="fa fa-search"></span> <u>S</u>earch</a></li>

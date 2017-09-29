@@ -8,11 +8,13 @@
           {{ if isset .Params "tracker" }}
           <h3>{{ .Title }}<br> <small>{{ .Description }}</small></h3>
           {{ else }}
+            {{/* TODO
             {{ range where $.Site.Sections.project.Pages "RelPermalink" "!=" $thisguy }}
               {{ if isset .Params "tracker" }}{{ if in $thisguy .RelPermalink }}
                 <h4><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
               {{ end }}{{ end }}
             {{ end }}
+            */}}
             <h3>{{ .Title }}<br> <small>{{ .Description }}</small></h3>
           {{ end }}
           {{ if isset .Params "tracker" }}
@@ -40,6 +42,7 @@
 
           {{ $.Scratch.Set "recentdate" "0" }}
           {{ if isset .Params "tracker" }}
+            {{/*
             {{ range where $.Site.Sections.project.Pages "RelPermalink" "!=" $thisguy }}
               {{ if in .RelPermalink $thisguy }}
                 {{ if eq ($.Scratch.Get "recentdate") "0" }}
@@ -62,6 +65,7 @@
                 </li>
               {{ end }}
             {{ end }}
+            */}}
             {{ if ne ($.Scratch.Get "recentdate") "0" }}
             </ol>
               <script type="text/javascript">

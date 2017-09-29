@@ -5,8 +5,10 @@
     <div class="row">
         <div class="col-md-9">
           <h3>Projects</h3>
-          {{ range where .Site.Sections.project.Pages "Params.tracker" "!=" nil }}
+          {{ with .Site.GetPage "section" "project" }}
+          {{ range where .Data.Pages "Params.tracker" "!=" nil }}
           {{ .Render "summary" }}
+          {{ end }}
           {{ end }}
         </div>
 
